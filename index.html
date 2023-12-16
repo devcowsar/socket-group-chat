@@ -79,9 +79,10 @@
     <script>
         let socket=io();
         function sendMsg(){
+          if(msg.value!==""){
           let msg=document.getElementById('msg').value;
           socket.emit('chat',msg);
-          document.getElementById('msg').value="";
+          document.getElementById('msg').value="";}
         }
         socket.on("chattransmit",(msg)=>{
           let listItem=document.createElement('li');
