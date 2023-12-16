@@ -4,8 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbox</title>
+    
 </head>
 <body>
-    <h1>hallo</h1>
+   <div class="container" >
+  <div class="flex-row ">
+    <div class="col">
+    <ul id="showmsg">
+
+    </ul>
+    </div>
+  </div>
+    </div>
+
+    <div class="container" >
+  <div class="flex-row ">
+    <div class="col">
+    <input id="msg" class="form-control" type="text"/>
+    <button onclick="sendMsg()" class="btn">send</button>
+    </div>
+  </div>
+    </div>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        let socket=io();
+        function sendMsg(){
+          let msg=document.getElementById('msg').value;
+          socket.emit('chat',msg);
+        }
+        socket.on("chattransmit",(msg)=>{
+          let listItem=document.createElement('li');
+          listItem.textContent=msg;
+          let showmsg=document.getElementById('showmsg');
+          showmsg.appendChild(listItem);
+        })
+    </script>
 </body>
 </html>
