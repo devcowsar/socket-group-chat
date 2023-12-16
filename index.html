@@ -4,26 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbox</title>
-    
+    <style>
+      .container{
+       width: 100%;
+       
+      }
+      .gridcontainer{
+        display: flex;
+       justify-content: center;
+       row-gap: 5px;
+       flex-direction: column;
+       padding: 2rem;
+       align-self: stretch;
+      }
+      .form-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1.5rem;
+        align-self: stretch;
+        width: 50%;
+        margin: auto;
+      }
+      .messagebox{
+       
+        background-color:rgb(217, 214, 220);
+        height: 300px;
+        width: 50%;
+        margin: auto;
+        overflow-y: auto;
+        
+      }
+      .form-control{
+        width: 100%;
+        padding:10px;
+        border-radius: 0.5rem;
+      }
+      #showmsg{
+        list-style-type: none;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        
+      }
+      li{
+        border: 1px solid rgb(133, 144, 245);
+        background: rgb(133, 144, 245);
+        margin-top: 2px;
+       padding:5px 5px 5px 5px ;
+       border-radius: 4px;
+        
+      }
+      .btn{
+        width: 15rem;
+        padding: auto;
+      }
+    </style>
 </head>
 <body>
-   <div class="container" >
-  <div class="flex-row ">
-    <div class="col">
+  <div class="container" >
+    <div class="gridcontainer">
+    <div  class="messagebox">
     <ul id="showmsg">
 
-    </ul>
     </div>
-  </div>
-    </div>
-
-    <div class="container" >
-  <div class="flex-row ">
-    <div class="col">
+    <div class="form-container">
     <input id="msg" class="form-control" type="text"/>
     <button onclick="sendMsg()" class="btn">send</button>
-    </div>
   </div>
+</div>
     </div>
 
     <script src="socket.io/socket.io.js"></script>
@@ -32,6 +81,7 @@
         function sendMsg(){
           let msg=document.getElementById('msg').value;
           socket.emit('chat',msg);
+          document.getElementById('msg').value="";
         }
         socket.on("chattransmit",(msg)=>{
           let listItem=document.createElement('li');
